@@ -22,14 +22,14 @@ export async function auth(credentials: Credentials) : Promise<AuthResponse> {
     }
 }
 
-export async function validateAccess() : Promise<String> {
+export async function validateAccess() : Promise<string> {
     const accessToken = await readToken();
-
-    const END_POINT = "/auth/me"
 
     if(!accessToken) {
         throw new Error("Access Token does not exist")
     }
+
+    const END_POINT = "/auth/me"
 
     try {
         await axios.get<User>(`${BASE_URL}${END_POINT}`, {
