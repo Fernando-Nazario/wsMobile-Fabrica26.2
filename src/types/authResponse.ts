@@ -2,7 +2,7 @@ import { User } from "./user"
 
 export interface AuthResponse {
     accessToken: string,
-    tokenType: "Bearer",
+    tokenType: string,
     expiresIn: number,
     user: User
 }
