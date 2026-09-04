@@ -1,19 +1,19 @@
 import * as SecureStore from 'expo-secure-store';
 
-async function saveToken(accessToken : string) {
+export async function saveToken(accessToken : string) {
     await SecureStore.setItemAsync('access_token',accessToken);
 }
 
-async function readToken() : Promise<String> {
+export async function readToken() : Promise<String | null> {
     const token = await SecureStore.getItemAsync('access_token');
 
     if(!token) {
-        throw new Error("Token does not exist");
+        return null;
     }
 
     return token;
 }
 
-async function deleteToken() {
+export async function deleteToken() {
     await SecureStore.deleteItemAsync('access_token');
 }
