@@ -2,17 +2,17 @@ import { ApiError } from "@/src/types/apiErrors";
 import {isAxiosError} from "axios"
 import { ErrorHttpStatus } from "@/src/types/apiErrors";
 
-export default function getErrorType(error : unknown) : ApiError{
+export function getErrorType(error : unknown) : ApiError{
     if(isAxiosError(error)) {
         if(error.response) {
             return {
                 status: error.response.status,
-                message: error.response.statusText
+                message: error.response.data?.message || error.response.statusText || `Request failed with status ${error.response.status}`
             }
         } else {
             return {
                 status: ErrorHttpStatus.NO_RESPONSE,
-                message: "Conection Error"
+                message: "Connection Error"
             }
         }
     } else {
