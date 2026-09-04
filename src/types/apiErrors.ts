@@ -8,6 +8,6 @@ export enum ErrorHttpStatus {
 }
 
 export interface ApiError {
-    status: ErrorHttpStatus,
+    status: number,
     message: string
 }
