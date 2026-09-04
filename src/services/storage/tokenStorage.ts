@@ -4,7 +4,7 @@ export async function saveToken(accessToken : string) {
     await SecureStore.setItemAsync('access_token',accessToken);
 }
 
-export async function readToken() : Promise<String | null> {
+export async function readToken() : Promise<string | null> {
     const token = await SecureStore.getItemAsync('access_token');
 
     if(!token) {
