@@ -22,7 +22,7 @@ export async function auth(credentials: Credentials) : Promise<AuthResponse> {
     }
 }
 
-export async function validateAccess() {
+export async function validateAccess() : Promise<String> {
     const accessToken = await readToken();
 
     const END_POINT = "/auth/me"
@@ -32,13 +32,13 @@ export async function validateAccess() {
     }
 
     try {
-        const response = await axios.get<User>(`${BASE_URL}${END_POINT}`, {
+        await axios.get<User>(`${BASE_URL}${END_POINT}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
         })
 
-        return response.data;
+        return accessToken;
     } catch(error) {
         if(axios.isAxiosError(error)) {
             console.error("Token is not valid:", error.response?.status ?? error.message);
