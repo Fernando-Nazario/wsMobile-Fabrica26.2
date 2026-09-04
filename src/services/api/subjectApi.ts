@@ -2,6 +2,7 @@ import { Subject } from "@/src/types/subject";
 import { readToken } from "../storage/tokenStorage";
 import axios from "axios";
 import { BASE_URL } from "./baseUrl";
+import { getErrorType } from "../utils/getErrorType";
 
 export async function getSubjects() : Promise<Subject[]> {
     const accessToken = await readToken();
@@ -21,10 +22,7 @@ export async function getSubjects() : Promise<Subject[]> {
 
         return response.data;
     } catch(error) {
-        if(axios.isAxiosError(error)) {
-            console.error("Failed to retrieve subjects:", error.response?.status ?? error.message);
-        }
-        throw error;
+        throw getErrorType(error);
     }
 }
 
@@ -46,9 +44,6 @@ export async function getSingleSubject(id : string) : Promise<Subject> {
 
         return response.data;
     } catch(error) {
-        if(axios.isAxiosError(error)) {
-            console.error("Failed to retrieve single subject:", error.response?.status ?? error.message);
-        }
-        throw error;
+        throw getErrorType(error);
     }
 }

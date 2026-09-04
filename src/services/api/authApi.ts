@@ -4,6 +4,7 @@ import axios from "axios";
 import { saveToken, readToken } from "../storage/tokenStorage";
 import { User } from "@/src/types/user";
 import { BASE_URL } from "./baseUrl";
+import { getErrorType } from "../utils/getErrorType";
 
 export async function auth(credentials: Credentials) : Promise<AuthResponse> {
     const END_POINT = "/auth/login";
@@ -15,10 +16,7 @@ export async function auth(credentials: Credentials) : Promise<AuthResponse> {
 
         return response.data;
     } catch(error) {
-        if(axios.isAxiosError(error)) {
-            console.error("Request error:", error.response?.status ?? error.message);
-        }
-        throw error;
+        throw getErrorType(error);
     }
 }
 
@@ -40,9 +38,6 @@ export async function validateAccess() : Promise<string> {
 
         return accessToken;
     } catch(error) {
-        if(axios.isAxiosError(error)) {
-            console.error("Token is not valid:", error.response?.status ?? error.message);
-        }
-        throw error;
+        throw getErrorType(error);
     }
 }
