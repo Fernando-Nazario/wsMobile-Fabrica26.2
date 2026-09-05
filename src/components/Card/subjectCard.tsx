@@ -1,22 +1,11 @@
 import { palette } from "@/src/constants/palette";
-import { Subject, SubjectStatus } from "@/src/types/subject";
+import { STATUS_COLOR, STATUS_NAME } from "@/src/constants/subjectStatus";
+import { Subject } from "@/src/types/subject";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 type SubjectProps = {
     data: Subject;
-};
-
-const STATUS_NAME: Record<SubjectStatus, string> = {
-    "active": "Ativo",
-    "inactive": "Inativo",
-    "pending": "Pendente"
-};
-
-const STATUS_COLOR: Record<SubjectStatus, { bgColor: string; textColor: string }> = {
-    "active": { bgColor: palette.statusActiveBg, textColor: palette.statusActiveText },
-    "inactive": { bgColor: palette.statusInactiveBg, textColor: palette.statusInactiveText },
-    "pending": { bgColor: palette.statusPendingBg, textColor: palette.statusPendingText }
 };
 
 export default function SubjectCard({ data }: SubjectProps) {
