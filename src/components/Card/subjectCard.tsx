@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 12,
         marginBottom: 18,
-        elevation: 2
+        elevation: 3
     },
     image: {
         width: '100%',
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: "flex-start",
         marginBottom: 6,
-        elevation: 1
+        elevation: 2
     }
 })
