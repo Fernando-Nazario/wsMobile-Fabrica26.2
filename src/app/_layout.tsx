@@ -6,7 +6,7 @@ export default function RootLayout() {
         <>
             <Stack>
                 <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-                <Stack.Screen name="login" options={{presentation: "card"}}/>
+                <Stack.Screen name="login" options={{presentation: "card", title:"Login"}}/>
                 <Stack.Screen name="subject/[id]" options={{presentation: "modal"}}/>
             </Stack>
             <Toast/>
