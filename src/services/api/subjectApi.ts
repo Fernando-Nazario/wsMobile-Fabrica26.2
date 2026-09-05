@@ -1,4 +1,5 @@
 import { Subject } from "@/src/types/subject";
+import { ApiError, ErrorHttpStatus } from "@/src/types/apiErrors";
 import { readToken } from "../storage/tokenStorage";
 import axios from "axios";
 import { BASE_URL } from "./baseUrl";
@@ -8,7 +9,12 @@ export async function getSubjects() : Promise<Subject[]> {
     const accessToken = await readToken();
 
     if(!accessToken) {
-        throw new Error("Token does not exist");
+        const error : ApiError = {
+            status: ErrorHttpStatus.UNAUTHORIZED,
+            message: "Token does not exist"
+        };
+
+        throw error;
     }
 
     const END_POINT = "/subjects"
@@ -30,7 +36,12 @@ export async function getSingleSubject(id : string) : Promise<Subject> {
     const accessToken = await readToken();
 
     if(!accessToken) {
-        throw new Error("Token does not exist");
+        const error : ApiError = {
+            status: ErrorHttpStatus.UNAUTHORIZED,
+            message: "Token does not exist"
+        };
+
+        throw error;
     }
     
     const END_POINT = `/subjects/${encodeURIComponent(id)}`;
