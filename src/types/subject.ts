@@ -1,4 +1,4 @@
-type SubjectStatus = "active" | "pending" | "inactive";
+export type SubjectStatus = "active" | "pending" | "inactive";
 
 export interface Subject {
   id:          string;         
