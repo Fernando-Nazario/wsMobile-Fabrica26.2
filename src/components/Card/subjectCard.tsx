@@ -29,9 +29,11 @@ export default function SubjectCard({data} : SubjectProps) {
 
     return(
         <> 
-            
             <Pressable style={styles.card} onPress={() => handleCardPress()}>
-                <Text style={{...styles.status,backgroundColor: statusColor.bgColor, color: statusColor.textColor, borderColor: statusColor.textColor}}>{statusName}</Text>
+                <Text 
+                    style={{...styles.status,backgroundColor: statusColor.bgColor, color: statusColor.textColor, borderColor: statusColor.textColor}}>
+                    {statusName}
+                </Text>
                 <Image 
                     source={{uri: data.coverUrl}}
                     style={styles.image}
