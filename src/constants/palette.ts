@@ -16,4 +16,7 @@ export const palette = {
     statusPendingText: "#9A5B08",
     statusInactiveBg: "#EEF1F5",
     statusInactiveText: "#5B6B84",
+
+    teacherRole: "#ff8801",
+    logout: "#ff0000"
 } as const;
