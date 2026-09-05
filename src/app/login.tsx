@@ -12,8 +12,9 @@ export default function Login() {
 
     const handleLogin = async () => {
         setLoading(true);
+        const formatedEmail = email.trim().toLocaleLowerCase();
         try{
-            if(!(email.trim() || password.trim())){
+            if(!(formatedEmail || password.trim())){
                 throw new Error();
             }
             await auth({email: email, password: password});
