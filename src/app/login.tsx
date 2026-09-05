@@ -11,8 +11,11 @@ export default function Login() {
     const [error, setError] = useState(false);
 
     const handleLogin = async () => {
-        setLoading(true); 
+        setLoading(true);
         try{
+            if(!(email.trim() || password.trim())){
+                throw new Error();
+            }
             await auth({email: email, password: password});
             router.replace("/");
         } catch{
