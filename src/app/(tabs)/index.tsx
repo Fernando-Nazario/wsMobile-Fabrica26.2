@@ -80,10 +80,15 @@ export default function Home() {
                 data={data}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
-                    <SubjectCard info={item}/>
+                    <SubjectCard data={item}/>
                 )}
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
+                style={{marginTop: 16}}
+                initialNumToRender={5}
+                maxToRenderPerBatch={10}
+                overScrollMode="always"
+                bounces={true}
             />
         </View>
     );
