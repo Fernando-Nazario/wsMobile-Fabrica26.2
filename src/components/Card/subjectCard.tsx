@@ -1,60 +1,80 @@
-import { Subject } from "@/src/types/subject"
-import { Image, StyleSheet, Text, View } from "react-native";
+import { palette } from "@/src/constants/palette";
+import { Subject, SubjectStatus } from "@/src/types/subject";
+import { router } from "expo-router";
+import { Pressable, View, Image, StyleSheet, Text } from 'react-native';
 
 type SubjectProps = {
-    info: Subject
+    data : Subject,
 }
 
-const STATUS_LABEL: Record<Subject["status"], string> = {
-        active: "Ativo",
-        inactive: "Inativo",
-        pending: "Pendente",
-};
+const STATUS_NAME : Record<SubjectStatus, string> = {
+    "active" : "Ativo",
+    "inactive" : "Inativo",
+    "pending" : "Pendente"
+}
 
-export default function SubjectCard({info} : SubjectProps) {
-    const status = STATUS_LABEL[info.status] ?? "Desconhecido";
+const STATUS_COLOR : Record<SubjectStatus, {bgColor : string, textColor : string}> = {
+    "active" : {bgColor: palette.statusActiveBg, textColor: palette.statusActiveText},
+    "inactive" : {bgColor: palette.statusInactiveBg, textColor: palette.statusInactiveText},
+    "pending": {bgColor: palette.statusPendingBg, textColor: palette.statusPendingText}
+}
+
+export default function SubjectCard({data} : SubjectProps) {
+    const statusName = STATUS_NAME[data.status];
+    const statusColor = STATUS_COLOR[data.status];
+
+    const handleCardPress = () => {
+        router.push({ pathname: "/subject/[id]", params: { id: data.id } });
+    }
 
     return(
-        <View style={styles.card}>
-            <Text style={styles.status}>{status}</Text>
-            <Image
-                source={{uri: info.coverUrl}}
-                style={styles.image}
-            />
-            <View style={styles.textSection}>
-                <Text style={styles.title}>
-                    {info.name}
-                </Text>
-                <Text>
-                    {info.description}
-                </Text>
-            </View>
-        </View>
+        <> 
+            
+            <Pressable style={styles.card} onPress={() => handleCardPress()}>
+                <Text style={{...styles.status,backgroundColor: statusColor.bgColor, color: statusColor.textColor, borderColor: statusColor.textColor}}>{statusName}</Text>
+                <Image 
+                    source={{uri: data.coverUrl}}
+                    style={styles.image}
+                />
+                <View>
+                    <Text style={styles.title}>{data.name}</Text>
+                    <Text>{data.description}</Text>
+                </View>
+            </Pressable>
+        </>
+       
     );
 }
 
 const styles = StyleSheet.create({
-    card: {
+    card:{
         width: '100%',
-    },
-    status: {
-        padding: 10,
-        margin: 3,
+        backgroundColor: palette.surface,
+        borderColor: palette.border,
+        borderRadius: 10,
         borderWidth: 1,
-        alignSelf: "flex-start"
-    },
-    textSection: {
-        paddingHorizontal: 5,
-        paddingVertical:3,
-        backgroundColor: "#808080"
-    },
-    title: {
-        fontWeight: "bold",
-        fontSize: 16,
-        marginBottom:5
+        padding: 12,
+        marginBottom: 18,
+        elevation: 2
     },
     image: {
         width: '100%',
-        height: 160
+        height: 140
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 4
+    },
+    status: {
+        width: 70,
+        paddingVertical: 5,
+        borderRadius: 10,
+        borderWidth: 1,
+        textAlign: 'center',
+        fontSize: 12,
+        alignSelf: "flex-start",
+        marginBottom: 6,
+        elevation: 1
     }
 })
