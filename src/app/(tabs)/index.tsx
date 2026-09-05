@@ -19,27 +19,27 @@ export default function Home() {
         setRefreshing(true);
         try {
             setData(await getSubjects());
-        } catch(err) {
+        } catch (err) {
             const error = err as ApiError;
             showErrorToast(error);
             setError(true);
         } finally {
             setRefreshing(false);
         }
-    }
+    };
 
     const loadData = async () => {
         setLoading(true);
         try {
             setData(await getSubjects());
-        } catch(err) {
+        } catch (err) {
             const error = err as ApiError;
             showErrorToast(error);
             setError(true);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         const handleInit = async () => {
@@ -52,39 +52,35 @@ export default function Home() {
             await loadData();
         };
         handleInit();
-    },[])
+    }, []);
 
-    if(loading) {
-        return(
+    if (loading) {
+        return (
             <View style={styles.centered}>
-                <ActivityIndicator color={palette.primary} size={"large"}/>
+                <ActivityIndicator color={palette.primary} size="large" />
             </View>
         );
     }
 
-    if(error) {
-        return(
+    if (error) {
+        return (
             <View style={styles.centered}>
-                <TouchableOpacity style={styles.reloadButton} onPress={() => {loadData()}}>
-                    <Text style={{textAlign: 'center'}}>
-                        Tentar novamente!
-                    </Text>
+                <TouchableOpacity style={styles.reloadButton} onPress={() => loadData()}>
+                    <Text style={{ textAlign: "center" }}>Tentar novamente!</Text>
                 </TouchableOpacity>
             </View>
         );
     }
 
-    return(
+    return (
         <View style={styles.container}>
-            <FlatList 
+            <FlatList
                 data={data}
                 keyExtractor={(item) => item.id}
-                renderItem={({item}) => (
-                    <SubjectCard data={item}/>
-                )}
+                renderItem={({ item }) => <SubjectCard data={item} />}
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
-                style={{marginTop: 16}}
+                style={{ marginTop: 16 }}
                 initialNumToRender={5}
                 maxToRenderPerBatch={10}
                 overScrollMode="always"
@@ -97,11 +93,11 @@ export default function Home() {
 const styles = StyleSheet.create({
     centered: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: "center",
+        alignItems: "center"
     },
     container: {
-        paddingHorizontal: 16,
+        paddingHorizontal: 16
     },
     reloadButton: {
         paddingVertical: 14,
