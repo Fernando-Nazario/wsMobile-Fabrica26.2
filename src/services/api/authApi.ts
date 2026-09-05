@@ -41,3 +41,25 @@ export async function validateAccess() : Promise<string> {
         throw getErrorType(error);
     }
 }
+
+export async function getProfile() : Promise<User> {
+    const accessToken = await readToken();
+
+    if(!accessToken) {
+        throw new Error("Access Token does not exist")
+    }
+
+    const END_POINT = "/auth/me"
+
+    try {
+        const user = await axios.get<User>(`${BASE_URL}${END_POINT}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+
+        return user.data;
+    } catch(error) {
+        throw getErrorType(error);
+    }
+}
