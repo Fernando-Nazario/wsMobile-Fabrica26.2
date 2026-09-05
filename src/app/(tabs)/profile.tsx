@@ -68,6 +68,11 @@ export default function Profile() {
 
     return (
         <View style={styles.centered}>
+            <View style={styles.portrait}>
+                <Text style={styles.textPortrait}>
+                    {`${user?.name[0].toUpperCase()}${user?.name[1].toUpperCase()}`}
+                </Text>
+            </View>
             <View style={styles.data}>
                 <Text style={{ ...styles.role, backgroundColor: roleColor }}>{roleName}</Text>
                 <Text style={styles.name}>{user?.name}</Text>
@@ -89,19 +94,20 @@ const styles = StyleSheet.create({
     name: {
         fontWeight: "bold",
         fontSize: 22,
-        marginVertical: 12
+        marginVertical: 12,
+        textAlign: "center"
     },
     role: {
         fontSize: 14,
         alignSelf: "flex-start",
         backgroundColor: palette.teacherRole,
         color: palette.onPrimary,
-        padding: 4,
+        padding: 6,
         borderRadius: 10
     },
     email: {
         fontSize: 16,
-        textAlign: "left"
+        textAlign: "center"
     },
     logout: {
         marginVertical: 24,
@@ -131,5 +137,20 @@ const styles = StyleSheet.create({
         borderColor: palette.border,
         borderRadius: 10,
         elevation: 3
+    },
+    portrait: {
+        width: 150,
+        height: 150,
+        borderRadius: 999,
+        backgroundColor: palette.primary,
+        marginBottom: 20,
+        flexShrink: 1,
+        justifyContent: "center",
+        alignContent: "center"
+    },
+    textPortrait: {
+        textAlign: "center",
+        fontSize: 64,
+        color: palette.onPrimary
     }
 });
