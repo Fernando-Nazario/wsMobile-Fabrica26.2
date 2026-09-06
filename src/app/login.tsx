@@ -17,7 +17,7 @@ export default function Login() {
             if (!(formatedEmail || password.trim())) {
                 throw new Error();
             }
-            await auth({ email: email, password: password });
+            await auth({ email: formatedEmail, password: password });
             router.replace("/");
         } catch {
             setError(true);
@@ -35,6 +35,7 @@ export default function Login() {
                 placeholder="Digite seu email..."
                 placeholderTextColor={palette.textMuted}
                 onChangeText={(email) => setEmail(email)}
+                keyboardType="email-address"
             />
 
             <Text style={styles.labelInput}>Senha</Text>
