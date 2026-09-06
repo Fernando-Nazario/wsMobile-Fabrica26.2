@@ -3,6 +3,8 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth } from "../services/api/authApi";
+import { showErrorToast } from "../components/ToastError/ToastError";
+import { ApiError, ErrorHttpStatus } from '../types/apiErrors';
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
@@ -19,7 +21,13 @@ export default function Login() {
             }
             await auth({ email: formatedEmail, password: password });
             router.replace("/");
-        } catch {
+        } catch(err){
+            const error = err as ApiError;
+            if(error.status === ErrorHttpStatus.NO_RESPONSE || error.status === ErrorHttpStatus.UNKNOWN) {
+                showErrorToast(error);
+                setError(false);
+                return;
+            }
             setError(true);
         } finally {
             setLoading(false);
