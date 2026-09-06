@@ -47,6 +47,7 @@ export default function Home() {
                 await validateAccess();
             } catch {
                 router.replace("/login");
+                return;
             }
 
             await loadData();
